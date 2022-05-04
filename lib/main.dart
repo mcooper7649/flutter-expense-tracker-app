@@ -77,6 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
         date: DateTime.now(),
       )
     ];
+    // String titleInput = '';
+    // String amountInput = '';
+
+    final titleController = TextEditingController();
+    final amountController = TextEditingController();
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -110,13 +116,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(labelText: 'Title'),
+                      controller: titleController,
+                      // onChanged: (val) {
+                      //   titleInput = val;
+                      // },
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Amount'),
+                      controller: amountController,
+                      // onChanged: (val) {
+                      //   amountInput = val;
+                      // },
                     ),
                     FlatButton(
                       child: Text('Add Transaction'),
-                      onPressed: () {},
+                      // onPressed: () {
+                      //   print(titleInput);
+                      //   print(amountInput);
+                      // },
+                      onPressed: () {
+                        print(titleController.text);
+                        print(amountController.text);
+                      },
                       textColor: Colors.purple,
                     )
                   ],
