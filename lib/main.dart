@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import './transaction.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -63,6 +62,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Transaction> transactions = [
+      Transaction(
+        id: 't1',
+        title: 'New Shoes',
+        amount: 69.99,
+        date: DateTime.now(),
+      ),
+      Transaction(
+        id: 't2',
+        title: 'New Hat',
+        amount: 29.99,
+        date: DateTime.now(),
+      )
+    ];
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -81,15 +94,58 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
+              child: const Card(
                 color: Colors.blue,
                 child: Text('Chart'),
                 elevation: 5,
               ),
             ),
-            Card(
-              color: Colors.red,
-              child: Text('List of TX'),
+            Column(
+              children: transactions.map((tx) {
+                return Card(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.purple,
+                            width: 2,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          tx.amount.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            tx.title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(
+                            tx.date.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w200,
+                                fontSize: 12,
+                                color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ));
