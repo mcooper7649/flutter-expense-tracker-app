@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/transaction.dart';
 import 'package:intl/intl.dart';
+
+import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -12,8 +13,7 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 300,
       child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (ctx, index) {
           return Card(
             child: Row(
               children: <Widget>[
@@ -24,17 +24,18 @@ class TransactionList extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       width: 2,
                     ),
                   ),
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    "\$${transactions[index].amount}",
+                    '\$${transactions[index].amount.toStringAsFixed(2)}',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.purple),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ),
                 Column(
@@ -42,15 +43,16 @@ class TransactionList extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       transactions[index].title,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
-                      DateFormat.yMMMMd().format(transactions[index].date),
+                      DateFormat.yMMMd().format(transactions[index].date),
                       style: TextStyle(
-                          fontWeight: FontWeight.w200,
-                          fontSize: 12,
-                          color: Colors.grey),
+                        color: Colors.grey,
+                      ),
                     ),
                   ],
                 ),
@@ -58,6 +60,7 @@ class TransactionList extends StatelessWidget {
             ),
           );
         },
+        itemCount: transactions.length,
       ),
     );
   }
